@@ -15,8 +15,10 @@ In this homework, we will:
 * Create another dag for the Zones data
 
 
-If you don't have access to GCP, you can do that locally and ingest data to postgres 
-instead.
+If you don't have access to GCP, you can do that locally and ingest data to Postgres 
+instead. If you have access to GCP, you don't need to do it for local Postgres -
+only if you want.
+
 
 
 ## Question 1: Start date for the Yellow taxi data (1 point)
@@ -60,7 +62,7 @@ curl -sSLf { URL } > { LOCAL_PATH }
 ```
 
 When you run this for all the data, the temporary files will be saved in Docker and will consume your 
-disk space. If it causes problems for you, you can add another step in your DAG that cleans everything up.
+disk space. If it causes problems for you, add another step in your DAG that cleans everything up.
 It could be a bash operator that runs this command:
 
 ```bash
@@ -76,7 +78,12 @@ We will need three steps:
 
 * Donwload the data
 * Parquetize it 
-* Upload to GCS (Or Download -> Ingest, for local ingestion)
+* Upload to GCS
+
+If you don't have a GCP account, for local ingestion you'll need two steps:
+
+* Download the data
+* Ingest to Postgres
 
 Use the same frequency and the start date as for the yellow taxi dataset
 
@@ -90,7 +97,9 @@ Create the final DAG - for Zones:
 
 * Download it
 * Parquetize 
-* Upload to GCS (Or Download -> Ingest, for local ingestion)
+* Upload to GCS
+
+(Or two steps for local ingestion: download -> ingest to postgres)
 
 How often does it need to run?
 
